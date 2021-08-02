@@ -1,5 +1,6 @@
 package com.bootcamp.petApi.controller;
 
+import com.bootcamp.petApi.dto.request.PersonDTO;
 import com.bootcamp.petApi.dto.response.MessageResponseDTO;
 import com.bootcamp.petApi.model.Person;
 import com.bootcamp.petApi.service.PersonService;
@@ -20,7 +21,7 @@ public class PersonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // 201
-    public MessageResponseDTO createPerson(@RequestBody Person person){
-        return personService.createPerson(person);
+    public MessageResponseDTO createPerson(@RequestBody PersonDTO personDTO){
+        return personService.createPerson(personDTO);
     }
 }

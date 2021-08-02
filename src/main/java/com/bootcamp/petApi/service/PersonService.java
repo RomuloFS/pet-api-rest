@@ -1,26 +1,32 @@
 package com.bootcamp.petApi.service;
 
+import com.bootcamp.petApi.dto.request.PersonDTO;
 import com.bootcamp.petApi.dto.response.MessageResponseDTO;
+import com.bootcamp.petApi.mapper.PersonMapper;
 import com.bootcamp.petApi.model.Person;
 import com.bootcamp.petApi.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Service
 public class PersonService {
     private PersonRepository personRepository;
+
+    private final PersonMapper personMapper = PersonMapper.INSTANCE;
 
     @Autowired
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
-    public MessageResponseDTO createPerson(Person person){
-        Person savedPerson = personRepository.save(person);
+    public MessageResponseDTO createPerson(PersonDTO personDTO){
+        Person personToSave =  personMapper.toModel(personDTO);
+
+        Person savedPerson = personRepository.save(personToSave);
         return MessageResponseDTO
                 .builder()
-                .message("Created a new Pet with ID " + savedPerson.getId())
+                .message("Created a new person with ID " + savedPerson.getId())
                 .build();
         // MessageResponseDTO
     }
