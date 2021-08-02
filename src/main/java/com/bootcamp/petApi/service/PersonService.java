@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
-    private PersonRepository personRepository;
 
+    private PersonRepository personRepository;
     private final PersonMapper personMapper = PersonMapper.INSTANCE;
 
     @Autowired
@@ -30,11 +30,7 @@ public class PersonService {
         Person personToSave =  personMapper.toModel(personDTO);
 
         Person savedPerson = personRepository.save(personToSave);
-        return MessageResponseDTO
-                .builder()
-                .message("Created a new person with ID " + savedPerson.getId())
-                .build();
-        // MessageResponseDTO
+        return createMessageResponse(savedPerson.getId(),"Created a new person with ID ");
     }
 
 
@@ -56,10 +52,25 @@ public class PersonService {
         personRepository.deleteById(id);
     }
 
+    public MessageResponseDTO updateById(Long id, PersonDTO personDTO) throws PersonNotFoundException {
+        verifyIfExists(id);
+        Person personToUpdate =  personMapper.toModel(personDTO);
+
+        Person updatedPerson = personRepository.save(personToUpdate);
+        return createMessageResponse(updatedPerson.getId(),"Updated person with ID ");
+        // MessageResponseDTO
+    }
+
     // Método que verifica se o usuário com o id informado existe
     private Person verifyIfExists(Long id) throws PersonNotFoundException {
         return personRepository.findById(id)
                 .orElseThrow(() -> new PersonNotFoundException(id));
     }
-
+    // Método que cria a mensagem
+    private MessageResponseDTO createMessageResponse (Long id, String message) {
+        return MessageResponseDTO
+                .builder()
+                .message(message + id)
+                .build();
+    }
 }
