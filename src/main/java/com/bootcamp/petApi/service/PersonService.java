@@ -45,9 +45,21 @@ public class PersonService {
     }
 
     public PersonDTO findById(Long id) throws PersonNotFoundException {
-
-        Person person = personRepository.findById(id)
-                .orElseThrow(() -> new PersonNotFoundException(id));
+        // Verificando se o usuário com o ID recebido existe
+        Person person = verifyIfExists(id);
         return personMapper.toDTO(person);
     }
+
+    public void delete(Long id) throws PersonNotFoundException {
+        // Verificando se o usuário com o ID recebido existe
+        verifyIfExists(id);
+        personRepository.deleteById(id);
+    }
+
+    // Método que verifica se o usuário com o id informado existe
+    private Person verifyIfExists(Long id) throws PersonNotFoundException {
+        return personRepository.findById(id)
+                .orElseThrow(() -> new PersonNotFoundException(id));
+    }
+
 }
