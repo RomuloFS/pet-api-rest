@@ -6,6 +6,7 @@ import com.bootcamp.petApi.exception.PersonNotFoundException;
 import com.bootcamp.petApi.mapper.PersonMapper;
 import com.bootcamp.petApi.model.Person;
 import com.bootcamp.petApi.repository.PersonRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,15 +17,18 @@ import java.util.stream.Collectors;
 
 
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonService {
 
     private PersonRepository personRepository;
     private final PersonMapper personMapper = PersonMapper.INSTANCE;
 
+    /*
     @Autowired
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
+     */
 
     public MessageResponseDTO createPerson(PersonDTO personDTO){
         Person personToSave =  personMapper.toModel(personDTO);

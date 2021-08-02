@@ -5,6 +5,7 @@ import com.bootcamp.petApi.dto.response.MessageResponseDTO;
 import com.bootcamp.petApi.exception.PersonNotFoundException;
 import com.bootcamp.petApi.model.Person;
 import com.bootcamp.petApi.service.PersonService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,14 +14,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/pet")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonController {
 
     private PersonService personService;
 
+    /*
+    // Lombok já adiciona
     @Autowired
     public PersonController(PersonService personService) {
         this.personService = personService;
     }
+     */
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // 201
