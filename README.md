@@ -1,5 +1,5 @@
 
-## Projeto Desenvolvendo um sistema de gerenciamento de registros de um pet shop em API REST com Spring Boot
+## Projeto: Desenvolvendo um sistema de gerenciamento de registros de pet shop em API REST com Spring Boot
 
 Desenvolvendo um sistema de gerenciamento de registros de um pet shop em API REST com Spring Boot
 
